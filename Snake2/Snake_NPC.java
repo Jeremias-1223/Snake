@@ -21,7 +21,6 @@ public class Snake_NPC extends Snake_B{
                     p = food.getPosition();
                     Target = food;
                     vector = Math.sqrt((p.x - getHead().x) * (p.x - getHead().x)) + ((p.y - getHead().y) * (p.y - getHead().y));
-
                 }
             }
         }
@@ -42,14 +41,15 @@ public class Snake_NPC extends Snake_B{
                 case UP:
                     setDirection(Direction.LEFT);
                     break;
-                    case DOWN:
-                        setDirection(Direction.RIGHT);
-                        break;
-                        case LEFT:
-                            setDirection(Direction.UP);
-                            break;
-                            case RIGHT:
-                                setDirection(Direction.DOWN);
+                case DOWN:
+                    setDirection(Direction.RIGHT);
+                    break;
+                case LEFT:
+                    setDirection(Direction.UP);
+                    break;
+                case RIGHT:
+                    setDirection(Direction.DOWN);
+                    break;
             }
         }
     }

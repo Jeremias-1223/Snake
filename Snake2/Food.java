@@ -5,8 +5,7 @@ import java.util.Random;
 
 public class Food {
     private Point position;
-    private int width, height;
-    private Random rand = new Random();
+    private final int width, height;
     private Color color;
 
     public Food(int width, int height, Snake_B snake) {
@@ -16,6 +15,7 @@ public class Food {
     }
 
     public void respawn(Snake_B snake) {
+        Random rand = new Random();
         do {
             position = new Point(rand.nextInt(width), rand.nextInt(height));
         } while (snake.contains(position));

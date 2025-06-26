@@ -12,46 +12,43 @@ public abstract class Snake_B {
     private final Color color;
 
     public Snake_B (Double width, Double height, Color color, boolean NPC) {
-
         body = new LinkedList<>();
+        Random rand = new Random();
+        int i = rand.nextInt(4);
+        Double SpawnX = 0.0;
+        Double SpawnY = 0.0;;
 
-            Random rand = new Random();
-            int i = rand.nextInt(4);
-            if (!NPC) {
-                switch (i) {
-                    case 0:
-                        Double SpawnX = 0.0;
-                        Double SpawnY = 0.0;
-                        SpawnX = width / 4;
-                        SpawnY = height / 4;
-                        body.add(new Point(SpawnX.intValue(), SpawnY.intValue()));
-                        break;
-                    case 1:
-                        SpawnX = width * 0.75;
-                        SpawnY = height * 0.75;
-                        body.add(new Point(SpawnX.intValue(), SpawnY.intValue()));
-                        break;
-                    case 2:
-                        SpawnX = width / 4;
-                        SpawnY = height * 0.75;
-                        body.add(new Point(SpawnX.intValue(), SpawnY.intValue()));
-                        break;
-                    case 3:
-                        SpawnX = width * 0.75;
-                        SpawnY = height / 4;
-                        body.add(new Point(SpawnX.intValue(), SpawnY.intValue()));
-                }
-            } else{
-                body.add(new Point(width.intValue() / 2, height.intValue() / 2));
+        if (!NPC) {
+            switch (i) {
+
+                case 0:
+
+                    SpawnX = width / 4;
+                    SpawnY = height / 4;
+                    body.add(new Point(SpawnX.intValue(), SpawnY.intValue()));
+                    break;
+                case 1:
+                    SpawnX = width * 0.75;
+                    SpawnY = height * 0.75;
+                    body.add(new Point(SpawnX.intValue(), SpawnY.intValue()));
+                    break;
+                case 2:
+                    SpawnX = width / 4;
+                    SpawnY = height * 0.75;
+                    body.add(new Point(SpawnX.intValue(), SpawnY.intValue()));
+                    break;
+                case 3:
+                    SpawnX = width * 0.75;
+                    SpawnY = height / 4;
+                    body.add(new Point(SpawnX.intValue(), SpawnY.intValue()));
             }
-
+        } else{
+            body.add(new Point(width.intValue() / 2, height.intValue() / 2));
+        }
         this.width = width;
         this.height = height;
         this.color = color;
-
         direction = Direction.LEFT;
-
-
     }
 
     public void move() {
@@ -74,7 +71,7 @@ public abstract class Snake_B {
     public void grow() {
         Point tail = body.getLast();
         body.addLast(new Point(tail));
-        body.addLast(new Point(tail));
+
     }
 
     public void setDirection(Direction dir) {

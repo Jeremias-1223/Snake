@@ -25,7 +25,7 @@ public class GamePanelAdapt extends JPanel implements ActionListener, KeyListene
 
         snake = new Snake(WIDTH, HEIGHT, Color.GREEN);
         snake2 = new Snake(WIDTH, HEIGHT, Color.RED);
-        snakeNPC = new Snake_NPC(WIDTH,HEIGHT, Color.BLACK);
+        snakeNPC = new Snake_NPC(WIDTH, HEIGHT, Color.BLACK);
         generateRandomFoodItems();
         timer = new Timer(100, this);
         timer.start();
@@ -44,14 +44,14 @@ public class GamePanelAdapt extends JPanel implements ActionListener, KeyListene
             timer.stop();
             g.setColor(Color.RED);
             g.setFont(new Font("Arial", Font.BOLD, 40));
-            String lostText = "Game Over..";
+            String lostText = "Game Over...";
             FontMetrics fm = g.getFontMetrics();
 
             g.drawString(lostText, (getWidth() - fm.stringWidth(lostText)) / 2, getHeight() / 2);
             g.setFont(new Font("Arial", Font.BOLD, 20));
             String restartText = "Presiona R para reiniciar";
 
-            g.drawString(restartText, (getWidth() - g.getFontMetrics().stringWidth(restartText)) / 2,  + 40);
+            g.drawString(restartText, (getWidth() - g.getFontMetrics().stringWidth(restartText)) / 2, +40);
         }
 
     }
@@ -60,8 +60,12 @@ public class GamePanelAdapt extends JPanel implements ActionListener, KeyListene
     public void actionPerformed(ActionEvent e) {
         if (!Player1over || !Player2over) {
             snakeNPC.move(foods);
-            if (!Player1over) {snake.move();}
-            if (!Player2over) {snake2.move();}
+            if (!Player1over) {
+                snake.move();
+            }
+            if (!Player2over) {
+                snake2.move();
+            }
 
             if ((snake.checkCollisionWithWall() || snake.checkCollisionWithItself() || snake.checkCollisionWithSnake(snakeNPC))) {
                 Player1over = true;
@@ -69,19 +73,20 @@ public class GamePanelAdapt extends JPanel implements ActionListener, KeyListene
             if ((snake2.checkCollisionWithWall() || snake2.checkCollisionWithItself() || snake2.checkCollisionWithSnake(snakeNPC))) {
                 Player2over = true;
             }
-                for(Food f : foods){
-                    if(snake.getHead().equals(f.getPosition())){
-                        snake.grow();
-                        f.respawn(snake);}
+            for (Food f : foods) {
+                if (snake.getHead().equals(f.getPosition())) {
+                    snake.grow();
+                    f.respawn(snake);
+                }
 
-                    if(snake2.getHead().equals(f.getPosition())){
-                        snake2.grow();
-                        f.respawn(snake2);
-                    }
-                    if(snakeNPC.getHead().equals(f.getPosition())){
-                        snakeNPC.grow();
-                        f.respawn(snakeNPC);
-                    }
+                if (snake2.getHead().equals(f.getPosition())) {
+                    snake2.grow();
+                    f.respawn(snake2);
+                }
+                if (snakeNPC.getHead().equals(f.getPosition())) {
+                    snakeNPC.grow();
+                    f.respawn(snakeNPC);
+                }
             }
             repaint();
         }
@@ -105,32 +110,30 @@ public class GamePanelAdapt extends JPanel implements ActionListener, KeyListene
                     snake.setDirection(Direction.RIGHT);
                     break;
                 case KeyEvent.VK_W:
-                    snake2.setDirection(Direction.UP );
+                    snake2.setDirection(Direction.UP);
                     break;
                 case KeyEvent.VK_S:
-                    snake2.setDirection(Direction.DOWN );
+                    snake2.setDirection(Direction.DOWN);
                     break;
                 case KeyEvent.VK_A:
-                    snake2.setDirection(Direction.LEFT );
+                    snake2.setDirection(Direction.LEFT);
                     break;
                 case KeyEvent.VK_D:
-                    snake2.setDirection(Direction.RIGHT );
+                    snake2.setDirection(Direction.RIGHT);
                     break;
             }
 
-        }
-        else{
-            if(e.getKeyCode() == KeyEvent.VK_R){
+        } else {
+            if (e.getKeyCode() == KeyEvent.VK_R) {
                 resetGame();
             }
         }
     }
 
-
-    public void resetGame(){
+    public void resetGame() {
         snake = new Snake(WIDTH, HEIGHT, Color.GREEN);
         snake2 = new Snake(WIDTH, HEIGHT, Color.RED);
-        snakeNPC = new Snake_NPC(WIDTH,HEIGHT, Color.BLACK);
+        snakeNPC = new Snake_NPC(WIDTH, HEIGHT, Color.BLACK);
 
         generateRandomFoodItems();
 
@@ -145,13 +148,18 @@ public class GamePanelAdapt extends JPanel implements ActionListener, KeyListene
         foods = new java.util.ArrayList<>();
         int contador = 1 + rand.nextInt(8);
 
-        for(int i = 0; i<contador; i++){
+        for (int i = 0; i < contador; i++) {
             foods.add(new Food(WIDTH, HEIGHT, snake));
 
         }
 
     }
 
-    @Override public void keyReleased(KeyEvent e) {}
-    @Override public void keyTyped(KeyEvent e) {}
+    @Override
+    public void keyReleased(KeyEvent e) {
+    }
+
+    @Override
+    public void keyTyped(KeyEvent e) {
+    }
 }
