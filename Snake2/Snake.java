@@ -9,4 +9,8 @@ public class Snake extends Snake_B {
         super (width, height, color,false);
     }
 
+    @Override
+    public void move() {
+        super.move();
+    }
 }

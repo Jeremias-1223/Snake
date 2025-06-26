@@ -59,14 +59,15 @@ public class GamePanelAdapt extends JPanel implements ActionListener, KeyListene
     @Override
     public void actionPerformed(ActionEvent e) {
         if (!Player1over || !Player2over) {
-            if (!Player1over) {snake.move();}
-            if (!Player2over) {snake2.move();}
             snakeNPC.move(foods);
+            if (!Player1over) {snake.move();}
+            //if (!Player2over) {snake2.move();}
+
             if ((snake.checkCollisionWithWall() || snake.checkCollisionWithItself() || snake.checkCollisionWithSnake(snakeNPC))) {
                 Player1over = true;
             }
             if ((snake2.checkCollisionWithWall() || snake2.checkCollisionWithItself() || snake2.checkCollisionWithSnake(snakeNPC))) {
-                Player2over = true;
+                //Player2over = true;
             }
                 for(Food f : foods){
                     if(snake.getHead().equals(f.getPosition())){
@@ -143,7 +144,6 @@ public class GamePanelAdapt extends JPanel implements ActionListener, KeyListene
         Random rand = new Random();
         foods = new java.util.ArrayList<>();
         int contador = 1 + rand.nextInt(8);
-
 
         for(int i = 0; i<contador; i++){
             foods.add(new Food(WIDTH, HEIGHT, snake));
