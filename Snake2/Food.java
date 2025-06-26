@@ -1,5 +1,4 @@
 package Snake2;
-import Snake2.Snake;
 import java.awt.*;
 import java.util.Random;
 

@@ -15,8 +15,8 @@ public abstract class Snake_B {
         body = new LinkedList<>();
         Random rand = new Random();
         int i = rand.nextInt(4);
-        Double SpawnX = 0.0;
-        Double SpawnY = 0.0;;
+        Double SpawnX;
+        Double SpawnY;
 
         if (!NPC) {
             switch (i) {
