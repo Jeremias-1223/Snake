@@ -1,5 +1,5 @@
 package Snake2;
-import javax.swing.text.Position;
+
 import java.awt.*;
 
 public class Snake_NPC extends Snake_B{

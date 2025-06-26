@@ -1,7 +1,7 @@
 package Snake2;
 
 import java.awt.*;
-import java.util.LinkedList;
+
 
 public class Snake extends Snake_B {
 

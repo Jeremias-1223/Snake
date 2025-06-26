@@ -61,13 +61,13 @@ public class GamePanelAdapt extends JPanel implements ActionListener, KeyListene
         if (!Player1over || !Player2over) {
             snakeNPC.move(foods);
             if (!Player1over) {snake.move();}
-            //if (!Player2over) {snake2.move();}
+            if (!Player2over) {snake2.move();}
 
             if ((snake.checkCollisionWithWall() || snake.checkCollisionWithItself() || snake.checkCollisionWithSnake(snakeNPC))) {
                 Player1over = true;
             }
             if ((snake2.checkCollisionWithWall() || snake2.checkCollisionWithItself() || snake2.checkCollisionWithSnake(snakeNPC))) {
-                //Player2over = true;
+                Player2over = true;
             }
                 for(Food f : foods){
                     if(snake.getHead().equals(f.getPosition())){
