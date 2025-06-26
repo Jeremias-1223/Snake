@@ -20,9 +20,7 @@ public abstract class Snake_B {
 
         if (!NPC) {
             switch (i) {
-
                 case 0:
-
                     SpawnX = width / 4;
                     SpawnY = height / 4;
                     body.add(new Point(SpawnX.intValue(), SpawnY.intValue()));
