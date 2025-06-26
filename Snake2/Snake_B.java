@@ -14,44 +14,37 @@ public abstract class Snake_B {
     public Snake_B (Double width, Double height, Color color, boolean NPC) {
 
         body = new LinkedList<>();
-        if (!NPC) { //Si no es la SnakeNPC
+
             Random rand = new Random();
-            int i = rand.nextInt(3);
-            if (i == 0) {
-                Double SpawnX = 0.0;
-                Double SpawnY = 0.0;
-                SpawnX = width / 4;
-                SpawnY = height / 4;
-                body.add(new Point(SpawnX.intValue(), SpawnY.intValue()));
-
+            int i = rand.nextInt(4);
+            if (!NPC) {
+                switch (i) {
+                    case 0:
+                        Double SpawnX = 0.0;
+                        Double SpawnY = 0.0;
+                        SpawnX = width / 4;
+                        SpawnY = height / 4;
+                        body.add(new Point(SpawnX.intValue(), SpawnY.intValue()));
+                        break;
+                    case 1:
+                        SpawnX = width * 0.75;
+                        SpawnY = height * 0.75;
+                        body.add(new Point(SpawnX.intValue(), SpawnY.intValue()));
+                        break;
+                    case 2:
+                        SpawnX = width / 4;
+                        SpawnY = height * 0.75;
+                        body.add(new Point(SpawnX.intValue(), SpawnY.intValue()));
+                        break;
+                    case 3:
+                        SpawnX = width * 0.75;
+                        SpawnY = height / 4;
+                        body.add(new Point(SpawnX.intValue(), SpawnY.intValue()));
+                }
+            } else{
+                body.add(new Point(width.intValue() / 2, height.intValue() / 2));
             }
-            if (i == 1) {
-                Double SpawnX = 0.0;
-                Double SpawnY = 0.0;
-                SpawnX = width * 0.75;
-                SpawnY = height * 0.75;
-                body.add(new Point(SpawnX.intValue(), SpawnY.intValue()));
 
-            }
-            if (i == 2) {
-                Double SpawnX = 0.0;
-                Double SpawnY = 0.0;
-                SpawnX = width / 4;
-                SpawnY = height * 0.75;
-                body.add(new Point(SpawnX.intValue(), SpawnY.intValue()));
-
-            }
-            if (i == 3) {
-                Double SpawnX = 0.0;
-                Double SpawnY = 0.0;
-                SpawnX = width * 0.75;
-                SpawnY = height / 4;
-                body.add(new Point(SpawnX.intValue(), SpawnY.intValue()));
-
-            }
-        }else{
-            body.add(new Point(width.intValue()/2, height.intValue()/2));
-        }
         this.width = width;
         this.height = height;
         this.color = color;
@@ -113,6 +106,14 @@ public abstract class Snake_B {
         Point head = getHead();
         for (int i = 1; i < body.size(); i++) {
             if (head.equals(body.get(i))) return true;
+        }
+        return false;
+    }
+
+    public boolean checkCollisionWithSnake(Snake_B snake) {
+        Point head = getHead();
+        for (int i = 1; i < snake.body.size(); i++) {
+            if (head.equals(snake.body.get(i))) return true;
         }
         return false;
     }

@@ -17,7 +17,6 @@ public class Food {
 
     public void respawn(Snake_B snake) {
         do {
-
             position = new Point(rand.nextInt(width), rand.nextInt(height));
         } while (snake.contains(position));
         color = new Color(rand.nextInt(256), rand.nextInt(256), rand.nextInt(256));

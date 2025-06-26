@@ -3,6 +3,7 @@ import javax.swing.text.Position;
 import java.awt.*;
 
 public class Snake_NPC extends Snake_B{
+    private Food Target;
     public Snake_NPC(double width, double height, Color color) {
         super(width, height, color, true);
     }
@@ -11,13 +12,18 @@ public class Snake_NPC extends Snake_B{
         Point p= new Point();
         boolean flag = false;
         double vector=0.0;
-        for (Food food : foods ){
-            if (!flag || vector> Math.sqrt((food.getPosition().x -getHead().x)*(food.getPosition().x -getHead().x))+((food.getPosition().y -getHead().y)*(food.getPosition().y -getHead().y))) {
-                flag=true;
-                p = food.getPosition();
-                vector =Math.sqrt((food.getPosition().x -getHead().x)*(food.getPosition().x -getHead().x))+((food.getPosition().y -getHead().y)*(food.getPosition().y -getHead().y));
+
+        if (!foods.contains(Target) || !flag) {
+            for (Food food : foods) {
+                if (!flag || vector > Math.sqrt((food.getPosition().x - getHead().x) * (food.getPosition().x - getHead().x)) + ((food.getPosition().y - getHead().y) * (food.getPosition().y - getHead().y))) {
+                    flag = true;
+                    p = food.getPosition();
+                    Target = food;
+                    vector = Math.sqrt((food.getPosition().x - getHead().x) * (food.getPosition().x - getHead().x)) + ((food.getPosition().y - getHead().y) * (food.getPosition().y - getHead().y));
+                }
             }
         }
+
         if (p.y<getHead().y){
             setDirection(Direction.UP);
         }else if (p.y>getHead().y){
@@ -30,7 +36,19 @@ public class Snake_NPC extends Snake_B{
         }
 
         if (checkCollisionWithWall()) {
-            setDirection(Direction.LEFT);
+            switch (direction) {
+                case UP:
+                    setDirection(Direction.LEFT);
+                    break;
+                    case DOWN:
+                        setDirection(Direction.RIGHT);
+                        break;
+                        case LEFT:
+                            setDirection(Direction.UP);
+                            break;
+                            case RIGHT:
+                                setDirection(Direction.DOWN);
+            }
         }
     }
 
