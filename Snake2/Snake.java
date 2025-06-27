@@ -3,14 +3,10 @@ package Snake2;
 import java.awt.*;
 
 
-public class Snake extends Snake_B {
+public class Snake extends AbstractSnake {
 
-    public Snake (double width, double height, Color color){
+    public Snake (int width, int height, Color color){
         super (width, height, color,false);
     }
 
-    @Override
-    public void move() {
-        super.move();
-    }
 }

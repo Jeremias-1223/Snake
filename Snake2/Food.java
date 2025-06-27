@@ -2,18 +2,18 @@ package Snake2;
 import java.awt.*;
 import java.util.Random;
 
-public class Food {
+public class Food implements DrawInterface{
     private Point position;
     private final int width, height;
     private Color color;
 
-    public Food(int width, int height, Snake_B snake) {
+    public Food(int width, int height, AbstractSnake snake) {
         this.width = width;
         this.height = height;
         respawn(snake);
     }
 
-    public void respawn(Snake_B snake) {
+    public void respawn(AbstractSnake snake) {
         Random rand = new Random();
         do {
             position = new Point(rand.nextInt(width), rand.nextInt(height));

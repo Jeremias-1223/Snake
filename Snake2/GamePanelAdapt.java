@@ -10,9 +10,9 @@ public class GamePanelAdapt extends JPanel implements ActionListener, KeyListene
     private final int WIDTH = 30;
     private final int HEIGHT = 30;
     private Timer timer;
-    private Snake_B snake;
-    private Snake_B snake2;
-    private Snake_B snakeNPC;
+    private AbstractSnake snakePlayer1;
+    private AbstractSnake snakePlayer2;
+    private AbstractSnake snakeNPC;
     private java.util.List<Food> foods;
     private boolean Player1over;
     private boolean Player2over;
@@ -23,8 +23,8 @@ public class GamePanelAdapt extends JPanel implements ActionListener, KeyListene
         this.setFocusable(true);
         this.addKeyListener(this);
 
-        snake = new Snake(WIDTH, HEIGHT, Color.GREEN);
-        snake2 = new Snake(WIDTH, HEIGHT, Color.RED);
+        snakePlayer1 = new Snake(WIDTH, HEIGHT, Color.GREEN);
+        snakePlayer2 = new Snake(WIDTH, HEIGHT, Color.RED);
         snakeNPC = new Snake_NPC(WIDTH, HEIGHT, Color.BLACK);
         generateRandomFoodItems();
         timer = new Timer(100, this);
@@ -33,8 +33,8 @@ public class GamePanelAdapt extends JPanel implements ActionListener, KeyListene
 
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
-        snake.draw(g, TILE_SIZE);
-        snake2.draw(g, TILE_SIZE);
+        snakePlayer1.draw(g, TILE_SIZE);
+        snakePlayer2.draw(g, TILE_SIZE);
         snakeNPC.draw(g, TILE_SIZE);
         for (Food f : foods) {
             f.draw(g, TILE_SIZE);
@@ -61,27 +61,27 @@ public class GamePanelAdapt extends JPanel implements ActionListener, KeyListene
         if (!Player1over || !Player2over) {
             snakeNPC.move(foods);
             if (!Player1over) {
-                snake.move();
+                snakePlayer1.move();
             }
             if (!Player2over) {
-                snake2.move();
+                snakePlayer2.move();
             }
 
-            if ((snake.checkCollisionWithWall() || snake.checkCollisionWithItself() || snake.checkCollisionWithSnake(snakeNPC))) {
+            if ((snakePlayer1.checkCollisionWithWall() || snakePlayer1.checkCollisionWithItself() || snakePlayer1.checkCollisionWithSnake(snakeNPC))) {
                 Player1over = true;
             }
-            if ((snake2.checkCollisionWithWall() || snake2.checkCollisionWithItself() || snake2.checkCollisionWithSnake(snakeNPC))) {
+            if ((snakePlayer2.checkCollisionWithWall() || snakePlayer2.checkCollisionWithItself() || snakePlayer2.checkCollisionWithSnake(snakeNPC))) {
                 Player2over = true;
             }
             for (Food f : foods) {
-                if (snake.getHead().equals(f.getPosition())) {
-                    snake.grow();
-                    f.respawn(snake);
+                if (snakePlayer1.getHead().equals(f.getPosition())) {
+                    snakePlayer1.grow();
+                    f.respawn(snakePlayer1);
                 }
 
-                if (snake2.getHead().equals(f.getPosition())) {
-                    snake2.grow();
-                    f.respawn(snake2);
+                if (snakePlayer2.getHead().equals(f.getPosition())) {
+                    snakePlayer2.grow();
+                    f.respawn(snakePlayer2);
                 }
                 if (snakeNPC.getHead().equals(f.getPosition())) {
                     snakeNPC.grow();
@@ -98,28 +98,28 @@ public class GamePanelAdapt extends JPanel implements ActionListener, KeyListene
         if (!Player1over || !Player2over) {
             switch (e.getKeyCode()) {
                 case KeyEvent.VK_UP:
-                    snake.setDirection(Direction.UP);
+                    snakePlayer1.setDirection(Direction.UP);
                     break;
                 case KeyEvent.VK_DOWN:
-                    snake.setDirection(Direction.DOWN);
+                    snakePlayer1.setDirection(Direction.DOWN);
                     break;
                 case KeyEvent.VK_LEFT:
-                    snake.setDirection(Direction.LEFT);
+                    snakePlayer1.setDirection(Direction.LEFT);
                     break;
                 case KeyEvent.VK_RIGHT:
-                    snake.setDirection(Direction.RIGHT);
+                    snakePlayer1.setDirection(Direction.RIGHT);
                     break;
                 case KeyEvent.VK_W:
-                    snake2.setDirection(Direction.UP);
+                    snakePlayer2.setDirection(Direction.UP);
                     break;
                 case KeyEvent.VK_S:
-                    snake2.setDirection(Direction.DOWN);
+                    snakePlayer2.setDirection(Direction.DOWN);
                     break;
                 case KeyEvent.VK_A:
-                    snake2.setDirection(Direction.LEFT);
+                    snakePlayer2.setDirection(Direction.LEFT);
                     break;
                 case KeyEvent.VK_D:
-                    snake2.setDirection(Direction.RIGHT);
+                    snakePlayer2.setDirection(Direction.RIGHT);
                     break;
             }
 
@@ -131,8 +131,8 @@ public class GamePanelAdapt extends JPanel implements ActionListener, KeyListene
     }
 
     public void resetGame() {
-        snake = new Snake(WIDTH, HEIGHT, Color.GREEN);
-        snake2 = new Snake(WIDTH, HEIGHT, Color.RED);
+        snakePlayer1 = new Snake(WIDTH, HEIGHT, Color.GREEN);
+        snakePlayer2 = new Snake(WIDTH, HEIGHT, Color.RED);
         snakeNPC = new Snake_NPC(WIDTH, HEIGHT, Color.BLACK);
 
         generateRandomFoodItems();
@@ -149,17 +149,15 @@ public class GamePanelAdapt extends JPanel implements ActionListener, KeyListene
         int contador = 1 + rand.nextInt(8);
 
         for (int i = 0; i < contador; i++) {
-            foods.add(new Food(WIDTH, HEIGHT, snake));
+            foods.add(new Food(WIDTH, HEIGHT, snakePlayer1));
 
         }
 
     }
 
     @Override
-    public void keyReleased(KeyEvent e) {
-    }
+    public void keyReleased(KeyEvent e) {}
 
     @Override
-    public void keyTyped(KeyEvent e) {
-    }
+    public void keyTyped(KeyEvent e) {}
 }

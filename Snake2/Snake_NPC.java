@@ -2,9 +2,9 @@ package Snake2;
 
 import java.awt.*;
 
-public class Snake_NPC extends Snake_B{
+public class Snake_NPC extends AbstractSnake{
     private Food Target;
-    public Snake_NPC(double width, double height, Color color) {
+    public Snake_NPC(int width, int height, Color color) {
         super(width, height, color, true);
     }
 
