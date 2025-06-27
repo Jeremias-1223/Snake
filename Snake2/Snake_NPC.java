@@ -3,15 +3,17 @@ package Snake2;
 import java.awt.*;
 
 public class Snake_NPC extends AbstractSnake{
-    private Food Target;
+    private Food Target; //Evita bucles en casos donde hay comidas equidistantes
     public Snake_NPC(int width, int height, Color color) {
         super(width, height, color, true);
     }
 
+    //Permite que el NPC busque un Food
     public void AppleSense(java.util.List<Food> foods){
         Point p= new Point();
         double vector=0.0;
         if (Target!=null){
+            //Si ya hay una Food en la mira, se utiliza para mantener su camino
             p=Target.getPosition();
             vector = Math.sqrt((p.x - getHead().x) * (p.x - getHead().x)) + ((p.y - getHead().y) * (p.y - getHead().y));
         }
@@ -25,6 +27,7 @@ public class Snake_NPC extends AbstractSnake{
             }
         }
 
+        //Direccionamiento de NPC
         if (p.y<getHead().y){
             setDirection(Direction.UP);
         }else if (p.y>getHead().y){
@@ -36,6 +39,7 @@ public class Snake_NPC extends AbstractSnake{
             setDirection(Direction.RIGHT);
         }
 
+        //Evita colisiones con la pared y que el NPC se vaya del mapa
         if (checkCollisionWithWall()) {
             switch (direction) {
                 case UP:

@@ -18,29 +18,29 @@ public abstract class AbstractSnake implements DrawInterface{
         int SpawnX;
         int SpawnY;
 
-        if (!NPC) {
+        if (!NPC) { //Spawn random solo para jugadores
             switch (i) {
-                case 0:
+                case 0: //Spawn en el 1er cuadrante
                     SpawnX = width / 4;
                     SpawnY = height / 4;
                     body.add(new Point(SpawnX, SpawnY));
                     break;
-                case 1:
+                case 1: //Spawn en el 2do cuadrante
                     SpawnX = (int) (width * 0.75);
                     SpawnY = (int) (height * 0.75);
                     body.add(new Point(SpawnX, SpawnY));
                     break;
-                case 2:
+                case 2: //Spawn en el 3er cuadrante
                     SpawnX = width / 4;
                     SpawnY = (int) (height * 0.75);
                     body.add(new Point(SpawnX, SpawnY));
                     break;
-                case 3:
+                case 3: //Spawn en el 4to cuadrante
                     SpawnX = (int) (width * 0.75);
                     SpawnY = height / 4;
                     body.add(new Point(SpawnX, SpawnY));
             }
-        } else{
+        } else{ //Spawn del NPC en el centro
             body.add(new Point(width/ 2, height/ 2));
         }
         this.width = width;
@@ -64,12 +64,12 @@ public abstract class AbstractSnake implements DrawInterface{
         body.removeLast();
     }
 
+    //Polimorfismo para poder utilizar AppleSense en Snake_NPC
     public void move(java.util.List<Food> foods){}
 
     public void grow() {
         Point tail = body.getLast();
         body.addLast(new Point(tail));
-
     }
 
     public void setDirection(Direction dir) {

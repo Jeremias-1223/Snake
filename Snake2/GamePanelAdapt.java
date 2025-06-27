@@ -14,9 +14,10 @@ public class GamePanelAdapt extends JPanel implements ActionListener, KeyListene
     private AbstractSnake snakePlayer2;
     private AbstractSnake snakeNPC;
     private java.util.List<Food> foods;
-    private boolean Player1over;
+    private boolean Player1over; //Estado de juego de los jugadores (En juego/Perdido)
     private boolean Player2over;
 
+    //Construccion del juego
     public GamePanelAdapt() {
         this.setPreferredSize(new Dimension(WIDTH * TILE_SIZE, HEIGHT * TILE_SIZE));
         this.setBackground(Color.WHITE);
@@ -41,6 +42,7 @@ public class GamePanelAdapt extends JPanel implements ActionListener, KeyListene
         }
 
         if (Player1over && Player2over) {
+            //Mensaje de perdida cuando ambos jugadores pierden
             timer.stop();
             g.setColor(Color.RED);
             g.setFont(new Font("Arial", Font.BOLD, 40));
@@ -59,7 +61,7 @@ public class GamePanelAdapt extends JPanel implements ActionListener, KeyListene
     @Override
     public void actionPerformed(ActionEvent e) {
         if (!Player1over || !Player2over) {
-            snakeNPC.move(foods);
+            snakeNPC.move(foods); //NPC siempre se mueve, recibe la Lista foods para poder dirigirse hacia los objetos Food
             if (!Player1over) {
                 snakePlayer1.move();
             }
@@ -67,12 +69,15 @@ public class GamePanelAdapt extends JPanel implements ActionListener, KeyListene
                 snakePlayer2.move();
             }
 
+            //Si los jugadores se chocan contra una pared, si mismos o el NPC, pierden
             if ((snakePlayer1.checkCollisionWithWall() || snakePlayer1.checkCollisionWithItself() || snakePlayer1.checkCollisionWithSnake(snakeNPC))) {
                 Player1over = true;
             }
             if ((snakePlayer2.checkCollisionWithWall() || snakePlayer2.checkCollisionWithItself() || snakePlayer2.checkCollisionWithSnake(snakeNPC))) {
                 Player2over = true;
             }
+
+            //Si una Snake pasa por un Food, crece
             for (Food f : foods) {
                 if (snakePlayer1.getHead().equals(f.getPosition())) {
                     snakePlayer1.grow();
@@ -97,6 +102,7 @@ public class GamePanelAdapt extends JPanel implements ActionListener, KeyListene
     public void keyPressed(KeyEvent e) {
         if (!Player1over || !Player2over) {
             switch (e.getKeyCode()) {
+                //Controles Jugador 1 [W,A,S,D]
                 case KeyEvent.VK_UP:
                     snakePlayer1.setDirection(Direction.UP);
                     break;
@@ -109,6 +115,7 @@ public class GamePanelAdapt extends JPanel implements ActionListener, KeyListene
                 case KeyEvent.VK_RIGHT:
                     snakePlayer1.setDirection(Direction.RIGHT);
                     break;
+                //Controles Jugador 2 [Flechas]
                 case KeyEvent.VK_W:
                     snakePlayer2.setDirection(Direction.UP);
                     break;
@@ -124,6 +131,7 @@ public class GamePanelAdapt extends JPanel implements ActionListener, KeyListene
             }
 
         } else {
+            //Si ambos jugadores perdieron, se reinicia el juego al presionar 'R'
             if (e.getKeyCode() == KeyEvent.VK_R) {
                 resetGame();
             }
@@ -143,6 +151,7 @@ public class GamePanelAdapt extends JPanel implements ActionListener, KeyListene
         repaint();
     }
 
+    //Genera una cantidad aleatoria inicial de Food, esta cantidad sera constante durante el resto del juego
     private void generateRandomFoodItems() {
         Random rand = new Random();
         foods = new java.util.ArrayList<>();
@@ -154,7 +163,7 @@ public class GamePanelAdapt extends JPanel implements ActionListener, KeyListene
         }
 
     }
-
+    //no utilizado
     @Override
     public void keyReleased(KeyEvent e) {}
     @Override

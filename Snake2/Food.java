@@ -14,11 +14,11 @@ public class Food implements DrawInterface{
     }
 
     public void respawn(AbstractSnake snake) {
-        Random rand = new Random();
+        Random rand = new Random(); //Posicion aleatoria del nuevo Food
         do {
             position = new Point(rand.nextInt(width), rand.nextInt(height));
         } while (snake.contains(position));
-        color = new Color(rand.nextInt(256), rand.nextInt(256), rand.nextInt(256));
+        color = new Color(rand.nextInt(256), rand.nextInt(256), rand.nextInt(256)); //Color aleatorio
     }
 
     public void draw(Graphics g, int size) {
