@@ -157,7 +157,6 @@ public class GamePanelAdapt extends JPanel implements ActionListener, KeyListene
 
     @Override
     public void keyReleased(KeyEvent e) {}
-
     @Override
     public void keyTyped(KeyEvent e) {}
 }

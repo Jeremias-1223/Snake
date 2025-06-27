@@ -107,10 +107,7 @@ public abstract class AbstractSnake implements DrawInterface{
 
     public boolean checkCollisionWithSnake(AbstractSnake snake) {
         Point head = getHead();
-        for (int i = 1; i < snake.body.size(); i++) {
-            if (head.equals(snake.body.get(i))) return true;
-        }
-        return false;
+        return snake.contains(head);
     }
 
     public boolean contains(Point p) {
