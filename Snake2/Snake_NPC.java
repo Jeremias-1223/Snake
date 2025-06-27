@@ -11,20 +11,13 @@ public class Snake_NPC extends AbstractSnake{
     //Permite que el NPC busque un Food
     public void AppleSense(java.util.List<Food> foods){
         Point p= new Point();
-        double vector=0.0;
         if (Target!=null){
             //Si ya hay una Food en la mira, se utiliza para mantener su camino
             p=Target.getPosition();
-            vector = Math.sqrt((p.x - getHead().x) * (p.x - getHead().x)) + ((p.y - getHead().y) * (p.y - getHead().y));
         }
         if (!foods.contains(Target)) {
-            for (Food food : foods) {
-                if (((vector==0.0) || vector >= Math.sqrt((food.getPosition().x - getHead().x) * (food.getPosition().x - getHead().x)) + ((food.getPosition().y - getHead().y) * (food.getPosition().y - getHead().y)))) {
-                    p = food.getPosition();
-                    Target = food;
-                    vector = Math.sqrt((p.x - getHead().x) * (p.x - getHead().x)) + ((p.y - getHead().y) * (p.y - getHead().y));
-                }
-            }
+            p = foods.getFirst().getPosition();
+            Target = foods.getFirst();
         }
 
         //Direccionamiento de NPC
